@@ -72,6 +72,47 @@ Step To Run This WebSite
 #enable extension=gd in XAMP
 #XAMP->Config->php.in
 
+php artisan make:controller Admin/ProductController --resource
+php artisan make:model Product -m
+php artisan tinker
+-------------------------
+$product = new App\Models\Product;
+$product->category_id = 4;
+$product->brand_id = 0;
+$product->admin_id = 1;
+$product->admin_type = 'admin';
+$product->product_name = 'Red Casual Shirt';
+$product->product_code = 'RCS001';
+$product->product_color = 'Blue';
+$product->family_color = 'Blue';
+$product->group_code = 'GRP001';
+$product->product_price = 1000;
+$product->product_discount = 10;
+$product->product_discount_amount = 100;
+$product->discount_applied_on = 'product';
+$product->product_gst = 0;
+$product->final_price = 900;
+$product->main_image = "";
+$product->product_weight = 400;
+$product->product_video = "";
+$product->description = 'This is a stylish blue casual shirt for men.';
+$product->wash_care = 'Machine wash cold.';
+$product->search_keywords = 'blue shirt, casual wear, men shirt';
+$product->fabric = 'Cotton';
+$product->pattern = 'Solid';
+$product->sleeve = 'Full Sleeve';
+$product->fit = 'Regular Fit';
+$product->occasion = 'Casual';
+$product->stock = 50;
+$product->sort = 1;
+$product->meta_title = 'Blue Casual Shirt';
+$product->meta_description = 'Buy Blue Casual Shirt for Men Online.';
+$product->meta_keywords = 'blue, casual, men, shirt';
+$product->is_featured = 'Yes';
+$product->status = 1;
+$product->save();
+
+
 
 
 

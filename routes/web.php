@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -59,6 +60,10 @@ Route::prefix('admin')->group(function() {
     Route::post('delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
     Route::post('delete-sizechart-image', [CategoryController::class, 'deleteSizechartImage']);
 
+
+    //Product Route handle all product related operation
+    Route::resource('products', ProductController::class);
+    Route::post('update-product-status', [ProductController::class, 'updateProductStatus']);
 
 
 

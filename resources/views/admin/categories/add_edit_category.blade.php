@@ -65,8 +65,17 @@
 
     <div class="card-body">
         <div class="mb-3">
-            <label class="form-label" for="category_name">Category Name*</label>
+            <label class="form-label" for="category_name">Category Name</label>
             <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category Name" value="{{ old('category_name', $category->name ?? '') }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="product_category">Product Category</label>
+            <select class="form-select" id="product_category" name="product_category">
+                <option value="">Select a Category</option>
+                <option value="1">Clothing</option>
+                <option value="2">Electronics</option>
+                <option value="3">Appliances</option>
+            </select>
         </div>
 
         <div class="mb-3">

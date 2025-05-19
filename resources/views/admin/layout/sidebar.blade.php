@@ -74,9 +74,9 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="./generate/theme.html" class="nav-link">
+                <a href="{{ url('admin/products') }}" class="nav-link">
                   <i class="nav-icon bi bi-palette"></i>
-                  <p>Sub Admin Role Update</p>
+                  <p>Catalogure Management</p>
                 </a>
               </li>
               <li class="nav-item">

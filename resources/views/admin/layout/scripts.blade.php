@@ -263,6 +263,7 @@
   $(document).ready(function () {
     $("#categories").DataTable();
     $("#subadmins").DataTable();
+    $("#products").DataTable();
   });
 </script>
 

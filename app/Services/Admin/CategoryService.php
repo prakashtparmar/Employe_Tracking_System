@@ -100,6 +100,7 @@ class CategoryService
         $data['url'] = str_replace(" ", "-", strtolower($data['url']));
 
         $category->name = $data['category_name'];
+        $category->parent_id = $data['product_category'];
 
         // Discount default
         if (empty($data['category_discount'])) {
@@ -128,11 +129,13 @@ class CategoryService
     }
 
 
-    public function updateCategoryStatus($data) {
-    $status = ($data['status'] == "Active") ? 0 : 1;
-    Category::where('id', $data['category_id'])->update(['status' => $status]);
-    return $status;
+    public function updateCategoryStatus($data) 
+    {
+        $status = ($data['status'] == "Active") ? 0 : 1;
+        Category::where('id', $data['category_id'])->update(['status' => $status]);
+        return $status;
     }
+    
     public function deleteCategory($id) 
     {
         Category::where('id', $id)->delete();
