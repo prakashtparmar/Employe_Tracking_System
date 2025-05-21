@@ -32,7 +32,7 @@
           <!-- Bordered Table Card -->
           <div class="card mb-4">
             <div class="card-header">
-              <h3 class="card-title">Bordered Table</h3>
+              <h3 class="card-title">SubAdmin Control Panel</h3>
               <a style="max-width: 150px; float:right; display: inline-block;"
                 href="{{ url('admin/add-edit-subadmin') }}"
                 class="btn btn-block btn-primary">

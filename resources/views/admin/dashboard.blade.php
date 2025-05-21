@@ -414,7 +414,7 @@
               <div class="col-lg-5 connectedSortable">
                 <div class="card text-white bg-primary bg-gradient border-primary mb-4">
                   <div class="card-header border-0">
-                    <h3 class="card-title">Sales Value</h3>
+                    <h3 class="card-title">MAP</h3>
                     <div class="card-tools">
                       <button
                         type="button"
@@ -426,7 +426,10 @@
                       </button>
                     </div>
                   </div>
-                  <div class="card-body"><div id="world-map" style="height: 220px"></div></div>
+                  <div class="card-body">
+                  <div id="world-map" style="height: 220px"></div>
+
+                  </div>
                   <div class="card-footer border-0">
                     <!--begin::Row-->
                     <div class="row">

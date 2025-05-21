@@ -10,12 +10,12 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6">
-          <h3 class="mb-0">Categories Management</h3>
+          <h3 class="mb-0">Product Management</h3>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-end">
-            <li class="breadcrumb-item"><a href="#">Categories Management</a></li>
-            <li class="breadcrumb-item active">Categories</li>
+            <li class="breadcrumb-item"><a href="#">Product Management</a></li>
+            <li class="breadcrumb-item active">Product</li>
           </ol>
         </div>
       </div>
@@ -32,12 +32,12 @@
           <!-- Bordered Table Card -->
           <div class="card mb-4">
             <div class="card-header">
-              <h3 class="card-title">Master Category List</h3>
+              <h3 class="card-title">Master Product List</h3>
               @if($productsModule['edit_access']==1 || $productsModule['full_access']==1)
               <a style="max-width: 150px; float:right; display: inline-block;"
                 href="{{ url('admin/products/create') }}"
                 class="btn btn-block btn-primary">
-                  Add Categorey
+                  Add Product
               </a>
               @endif
             </div>

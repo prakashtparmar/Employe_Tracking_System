@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\MapController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -66,7 +67,9 @@ Route::prefix('admin')->group(function() {
     Route::post('update-product-status', [ProductController::class, 'updateProductStatus']);
 
 
-
+    //Map Route
+    Route::get('/', function () {return view('welcome');});
+    Route::get('map', [MapController::class, 'map'])->name('map');
 
 
     //Admin Logout

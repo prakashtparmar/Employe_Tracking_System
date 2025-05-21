@@ -36,7 +36,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Add Product';
+        return view('admin.products.add_edit_product', compact('title'));
     }
 
     /**
