@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Services\Admin\ProductService;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $message = $this->productService->addEditProduct($request);
         return redirect()->route('products.index')->with('success_message', $message);
@@ -69,7 +70,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $title = 'Edit Product';
-        $product = Product::findOrFail($id);
+        $product = Product::with('product_images')->findOrFail($id);
         $getCategories = Category::getCategories('Admin');
         return view('admin.products.add_edit_product', compact('title', 'product', 'getCategories'));
     }
@@ -77,7 +78,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
         $request->merge(['id' => $id]);
         $message = $this->productService->addEditProduct($request);
@@ -115,6 +116,40 @@ class ProductController extends Controller
         return response()->json(['error' => 'No file uploaded'], 400);
     }
 
+    public function uploadImages(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $fileName = $this->productService->handleImageUpload($request->file('file'));
+            return response()->json(['fileName' => $fileName]);
+        }
+
+        // Fallback or error handling if 'file' is not present, though Dropzone should ensure it.
+        // For now, mirroring the provided image content which_moves the file to a temp directory.
+        $file = $request->file('file');
+        // Generate a unique filename
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        // Move to temp directory
+        $file->move(public_path('temp'), $filename);
+
+        return response()->json([
+            'fileName' => $filename,
+            'success' => true
+        ]);
+    }
+
+    public function deleteProductImage($id)
+    {
+        $message = $this->productService->deleteProductImage($id);
+        return redirect()->back()->with('success_message', $message);
+    }
+
+    public function deleteProductMainImage($id)
+    {
+        $message = $this->productService->deleteProductMainImage($id);
+        return redirect()->back()->with('success_message', $message);
+    }
+
     public function uploadVideo(Request $request)
     {
         if ($request->hasFile('file')) {
@@ -124,11 +159,7 @@ class ProductController extends Controller
         return response()->json(['error' => 'No file uploaded'], 400);
     }
 
-    public function deleteProductMainImage($id)
-    {
-        $message = $this->productService->deleteProductMainImage($id);
-        return redirect()->back()->with('success_message', $message);
-    }
+
     public function deleteProductVideo($id)
     {
         $message = $this->productService->deleteProductVideo($id);

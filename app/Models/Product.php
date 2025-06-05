@@ -10,7 +10,12 @@ class Product extends Model
     {
         // Corrected relationship definition
         return $this->belongsTo(Category::class, 'category_id')
-                    ->with('parentCategory'); // Corrected method name to 'parentCategory'
+            ->with('parentCategory'); // Corrected method name to 'parentCategory'
+    }
+
+    // To be added in the Product Model
+    public function product_images()
+    {
+        return $this->hasMany(ProductsImage::class);
     }
 }
-
