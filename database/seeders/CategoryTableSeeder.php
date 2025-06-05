@@ -22,6 +22,7 @@ class CategoryTableSeeder extends Seeder
             ['parent_id' => 1, 'name' => 'Men', 'url' => 'men'], // Assuming 1 is the ID for 'Clothing'
             ['parent_id' => 1, 'name' => 'Women', 'url' => 'women'], // Assuming 1 is the ID for 'Clothing'
             ['parent_id' => 1, 'name' => 'Kids', 'url' => 'kids'],   // Assuming 1 is the ID for 'Clothing'
+            ['parent_id' => 4, 'name' => 'Men T-Shirt', 'url' => 'men-t-shirts'],
         ];
 
         foreach ($categories as $data) {

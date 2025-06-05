@@ -156,45 +156,6 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="main_image_dropzone">Product Main Image (Max 500
-                                            KB)</label>
-                                        <div class="dropzone" id="mainImageDropzone"></div>
-
-                                        @if (!empty($product['main_image']))
-                                            <a target="_blank"
-                                                href="{{ url('front/images/products/' . $product['main_image']) }}">
-                                                <img style="width:50px; margin: 10px;"
-                                                    src="{{ asset('front/images/products/' . $product['main_image']) }}">
-                                            </a>
-                                            <a style="color:#3f6ed3;" class="confirmDelete" title="Delete Product Image"
-                                                href="javascript:void(0)" data-module="product-main-image"
-                                                data-id="{{ $product['id'] }}">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <input type="hidden" name="main_image" id="main_image_hidden">
-
-                                    <div class="mb-3">
-                                        <label class="form-label" for="product_video_dropzone">Product Video (Max 2
-                                            MB)</label>
-                                        <div class="dropzone" id="productVideoDropzone"></div>
-
-                                        @if (!empty($product['product_video']))
-                                            <a target="_blank"
-                                                href="{{ url('front/videos/products/' . $product['product_video']) }}">View
-                                                Video</a> |
-                                            <a href="javascript:void(0)" class="confirmDelete"
-                                                data-module="product-video" data-id="{{ $product['id'] }}">Delete
-                                                Video</a>
-                                        @endif
-                                    </div>
-
-                                    <input type="hidden" name="product_video" id="product_video_hidden">
-
-
-                                    <div class="mb-3">
                                         <label class="form-label" for="wash_care">Wash Care</label>
                                         <textarea name="wash_care" class="form-control" placeholder="Enter Wash Care">{{ old('wash_care', $product->wash_care ?? '') }}</textarea>
                                     </div>

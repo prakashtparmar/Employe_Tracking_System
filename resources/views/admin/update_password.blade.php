@@ -69,8 +69,7 @@
                     class="form-control"
                     id="exampleInputEmail1"
                     value="{{ Auth::guard('admin')->user()->email }}"
-                    readonly
-                  />
+                    readonly />
                 </div>
 
                 {{-- Current Password --}}

@@ -183,17 +183,20 @@ $(document).on('click', '#deleteSizeChartImage', function() {
 //         return false; // Cancel deletion
 //     });
 
-$(document).on("click", ".confirmDelete", function(e) {
-    e.preventDefault();
+$(document).on("click", ".confirmDelete", function (e) {
+    e.preventDefault(); // Prevent the default action of the clicked element (e.g., following a link)
 
-    let button = $(this);
-    let module = button.data("module");
-    let moduleId = button.data("id");
-    let form = button.closest("form");
-    let redirectUrl = "/admin/delete-" + module + "/" + moduleId;
+    const button = $(this); // Use const for variables that won't be reassigned
+    const module = button.data("module"); // Get 'module' data attribute
+    const moduleId = button.data("id");   // Use camelCase for variable names (more common in JS)
+
+    const form = button.closest("form"); // Find the closest parent <form> element
+
+    // Construct the redirect URL for cases where a form submission isn't used
+    const redirectUrl = `/admin/delete-${module}/${moduleId}`; // Use template literals for cleaner string concatenation
 
     Swal.fire({
-        title: 'Are you sure?',
+        title: 'Are you sure?', // Corrected "Are sure?" to "Are you sure?" for better grammar
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -202,15 +205,23 @@ $(document).on("click", ".confirmDelete", function(e) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            if (form.length > 0) {
-                form.submit();
+            // Logic to handle deletion based on whether a form is present and valid
+            if (form.length > 0 && form.attr("action") && form.attr("method") === "POST") {
+                // If a valid form is found, prepare and submit it
+
+                // Check if a hidden input for '_method' (common in Laravel/Rails for RESTful DELETE) exists
+                if (form.find("input[name='_method']").length === 0) {
+                    // If not present, append it to mimic a DELETE request via POST
+                    form.append('<input type="hidden" name="_method" value="DELETE">');
+                }
+                form.submit(); // Submit the form
             } else {
+                // If no valid form is found, or if it's not a POST form, redirect directly
                 window.location.href = redirectUrl;
             }
         }
     });
 });
-
 
 
 

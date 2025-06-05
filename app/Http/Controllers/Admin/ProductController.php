@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\Admin\ProductService;
 use Session;
@@ -18,7 +20,8 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index() {
+    public function index()
+    {
         Session::put('page', 'products');
         $result = $this->productService->products();
         if ($result['status'] == "error") {
@@ -36,8 +39,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        //$title = 'Add Product';
+        //return view('admin.products.add_edit_product', compact('title'));
         $title = 'Add Product';
-        return view('admin.products.add_edit_product', compact('title'));
+        $getCategories = Category::getCategories('admin');
+        return view('admin.products.add_edit_product', compact('title', 'getCategories'));
     }
 
     /**
@@ -45,7 +51,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = $this->productService->addEditProduct($request);
+        return redirect()->route('products.index')->with('success_message', $message);
     }
 
     /**
@@ -61,7 +68,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $title = 'Edit Product';
+        $product = Product::findOrFail($id);
+        $getCategories = Category::getCategories('Admin');
+        return view('admin.products.add_edit_product', compact('title', 'product', 'getCategories'));
     }
 
     /**
@@ -69,7 +79,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->merge(['id' => $id]);
+        $message = $this->productService->addEditProduct($request);
+        return redirect()->route('products.index')->with('success_message', $message);
     }
 
     /**
@@ -81,7 +93,12 @@ class ProductController extends Controller
         return redirect()->back()->with('success_message', $result['message']);
     }
 
-    public function updateProductStatus(Request $request){
+    /**
+     * Product Video & Image Upload & Delete
+     */
+
+    public function updateProductStatus(Request $request)
+    {
         if ($request->ajax()) {
             $data = $request->all();
             $status = $this->productService->updateProductStatus($data);
@@ -89,6 +106,32 @@ class ProductController extends Controller
         }
     }
 
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $fileName = $this->productService->handleImageUpload($request->file('file'));
+            return response()->json(['fileName' => $fileName]);
+        }
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
 
+    public function uploadVideo(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $fileName = $this->productService->handleVideoUpload($request->file('file'));
+            return response()->json(['fileName' => $fileName]);
+        }
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
 
+    public function deleteProductMainImage($id)
+    {
+        $message = $this->productService->deleteProductMainImage($id);
+        return redirect()->back()->with('success_message', $message);
+    }
+    public function deleteProductVideo($id)
+    {
+        $message = $this->productService->deleteProductVideo($id);
+        return redirect()->back()->with('success_message', $message);
+    }
 }
