@@ -18,7 +18,7 @@
                 </li>
 
                 @php
-                    $adminManagementPages = ['update-password', 'update-details', 'subadmins', 'categories', 'products'];
+                    $adminManagementPages = ['update-password', 'update-details', 'subadmins', 'categories', 'products', 'trips'];
                 @endphp
 
                 <li class="nav-item {{ in_array(Session::get('page'), $adminManagementPages) ? 'menu-open' : '' }}">
@@ -67,6 +67,13 @@
                                 class="nav-link {{ Session::get('page') == 'products' ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-box-seam"></i>
                                 <p>Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('admin/trips') }}"
+                                class="nav-link {{ Session::get('page') == 'trips' ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-car-front"></i>
+                                <p>Trip</p>
                             </a>
                         </li>
                     </ul>

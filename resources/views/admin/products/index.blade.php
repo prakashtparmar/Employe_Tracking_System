@@ -39,7 +39,7 @@
                                         Add Product
                                     </a>
                                 @endif
-                                
+
                             </div>
 
                             <div class="card-body">

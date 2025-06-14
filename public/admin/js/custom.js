@@ -224,8 +224,4 @@ $(document).on("click", ".confirmDelete", function (e) {
 });
 
 
-
-
-
-
 });

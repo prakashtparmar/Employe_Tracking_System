@@ -238,6 +238,7 @@
         $("#categories").DataTable();
         $("#subadmins").DataTable();
         $("#products").DataTable();
+        $("#trips").DataTable();
     });
 </script>
 
@@ -368,5 +369,30 @@
                 this.addFile(file);
             });
         }
+    });
+</script>
+
+<script>
+    function openRejectModal(tripId) {
+        $('#denyTripId').val(tripId);
+        $('#denyTripModal').modal('show');
+    }
+
+    $('#denyTripForm').submit(function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+
+        $.ajax({
+            url: "{{ route('admin.trips.deny') }}", // Use route helper
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                alert(response.message);
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('Error: ' + (xhr.responseJSON.message || 'Something went wrong.'));
+            }
+        });
     });
 </script>
